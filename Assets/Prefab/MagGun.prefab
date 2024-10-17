@@ -535,7 +535,7 @@ MonoBehaviour:
   m_ThrowVelocityScale: 1.5
   m_ThrowAngularVelocityScale: 1
   m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
+  m_RetainTransformParent: 0
   m_AttachPointCompatibilityMode: 0
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d82c9b51cc36a046876740eb1af0e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxbulletCount: 20
+  maxbulletCount: 20
   bulletCount: 20
 --- !u!1 &3949744588437066491
 GameObject:

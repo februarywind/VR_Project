@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Magazine : MonoBehaviour
 {
-    public int MaxbulletCount;
+    [SerializeField] int maxbulletCount;
+    public int MaxbulletCount => maxbulletCount;
     public int bulletCount;
 }

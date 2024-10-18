@@ -22,7 +22,7 @@ public class HandGun : MonoBehaviour
     public void Fire()
     {
         if (magazine == null || magazine.bulletCount < 1) return;
-        Instantiate(bullet, firePoint.position, firePoint.rotation, null).GetComponent<Rigidbody>().AddForce(firePoint.forward * 10, ForceMode.Impulse);
+        PoolManager.instance.Create(PoolEnum.Bullet, firePoint).GetComponent<Rigidbody>().AddForce(firePoint.forward * 10, ForceMode.Impulse);
         magazine.bulletCount--;
         ammoTextUpdate();
         AudioManager.instance.PlaySfx(SfxAudio.HandGun);

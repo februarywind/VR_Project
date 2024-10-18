@@ -16,19 +16,25 @@ public class HandGun : MonoBehaviour
     {
         socket = GetComponent<XRSocketInteractor>();
         socket.selectEntered.AddListener(SetMagazine);
+        socket.selectExited.AddListener(ReSetMagazine);
     }
 
     public void Fire()
     {
-        if (magazine.bulletCount < 1) return;
+        if (magazine == null || magazine.bulletCount < 1) return;
         Instantiate(bullet, firePoint.position, firePoint.rotation, null).GetComponent<Rigidbody>().AddForce(firePoint.forward * 10, ForceMode.Impulse);
         magazine.bulletCount--;
         ammoTextUpdate();
+        AudioManager.instance.PlaySfx(SfxAudio.HandGun);
     }
     void SetMagazine(SelectEnterEventArgs args)
     {
         magazine = socket.GetOldestInteractableSelected().transform.gameObject.GetComponent<Magazine>();
         ammoTextUpdate();
+    }
+    void ReSetMagazine(SelectExitEventArgs args)
+    {
+        magazine = null;
     }
     void ammoTextUpdate()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum PoolEnum
 {
-    Bullet, Monster
+    Bullet, Monster, Magazine
 }
 public class PoolManager : MonoBehaviour
 {

@@ -41,5 +41,11 @@ public class Monster : MonoBehaviour
     {
         animator.SetTrigger("Dead");
         dead = true;
+        StartCoroutine(DeadCoroutine());
+    }
+    IEnumerator DeadCoroutine()
+    {
+        yield return new WaitForSeconds(3f);
+        gameObject.SetActive(false);
     }
 }

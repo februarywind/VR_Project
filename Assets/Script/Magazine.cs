@@ -9,4 +9,8 @@ public class Magazine : MonoBehaviour
     [SerializeField] int maxbulletCount;
     public int MaxbulletCount => maxbulletCount;
     public int bulletCount;
+    private void OnEnable()
+    {
+        bulletCount = maxbulletCount;
+    }
 }

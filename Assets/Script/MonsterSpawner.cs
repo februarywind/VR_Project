@@ -16,10 +16,15 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] List<Transform> openDoor;
     WaitForSeconds spawnTime;
     Coroutine waveCoroutine = null;
-    public void WaveStart(int level)
+    GameManager gameManager;
+    private void Start()
+    {
+        gameManager = GameManager.instance;
+    }
+    public void WaveStart()
     {
         if (waveCoroutine != null) return;
-        for (int i = 0; i < waveLevel[level].door; i++)
+        for (int i = 0; i < waveLevel[gameManager.waveLevel].door; i++)
         {
             Transform temp = spawnPoint[UnityEngine.Random.Range(0, spawnPoint.Length)];
             if (openDoor.Contains(temp))
@@ -29,21 +34,35 @@ public class MonsterSpawner : MonoBehaviour
             }
             openDoor.Add(temp);
         }
-        spawnTime = new WaitForSeconds(waveLevel[level].spawnTime);
-        waveCoroutine = StartCoroutine(WaveCoroutine(level));
+        spawnTime = new WaitForSeconds(waveLevel[gameManager.waveLevel].spawnTime);
+        waveCoroutine = StartCoroutine(WaveCoroutine(gameManager.waveLevel));
+        gameManager.killCount = 0;
     }
     public void WaveEnd()
     {
         StopCoroutine(waveCoroutine);
     }
+    public void WaveClear()
+    {
+        gameManager.waveLevel++;
+        gameManager.waveLevel = Math.Min(gameManager.waveLevel, 9);
+        StopCoroutine(waveCoroutine);
+        waveCoroutine = null;
+        openDoor.Clear();
+    }
+    public void KillMonster()
+    {
+        gameManager.killCount++;
+        if (gameManager.killCount < waveLevel[gameManager.waveLevel].maxMonster) return;
+        WaveClear();
+    }
     IEnumerator WaveCoroutine(int level)
     {
         int count = 0;
-        while (true)
+        while (count < waveLevel[level].maxMonster)
         {
             PoolManager.instance.Create(PoolEnum.Monster, openDoor[UnityEngine.Random.Range(0, openDoor.Count)]);
             count++;
-            if (count >= waveLevel[level].maxMonster) break;
             yield return spawnTime;
         }
     }

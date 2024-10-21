@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    GameManager instance;
-    [SerializeField] MonsterSpawner monsterSpawner;
+    public static GameManager instance;
+    
+    public MonsterSpawner monsterSpawner;
+
+    public int waveLevel;
+    public int killCount;
+
     private void Awake()
     {
         instance = this;

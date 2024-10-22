@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
-using static UnityEngine.ParticleSystem;
 
-public class HandGun : MonoBehaviour
+public class Machinegun : MonoBehaviour
 {
     [SerializeField] GameObject bullet;
     [SerializeField] Transform firePoint;
@@ -13,6 +12,10 @@ public class HandGun : MonoBehaviour
     [SerializeField] Magazine magazine;
     [SerializeField] Text ammoText;
     [SerializeField] ParticleSystem particle;
+    [SerializeField] float FireSpeed;
+
+    Coroutine FireCoroutine;
+    WaitForSeconds fireWait;
 
     private void Start()
     {
@@ -20,6 +23,15 @@ public class HandGun : MonoBehaviour
         socket.selectEntered.AddListener(SetMagazine);
         socket.selectExited.AddListener(ReSetMagazine);
         particle = GameObject.FindWithTag("GunParticle").GetComponent<ParticleSystem>();
+        fireWait = new WaitForSeconds(FireSpeed);
+    }
+    public void FireStart()
+    {
+        FireCoroutine = StartCoroutine(FireTrigger());
+    }
+    public void FireEnd() 
+    { 
+        StopCoroutine(FireCoroutine);
     }
 
     public void Fire()
@@ -35,7 +47,7 @@ public class HandGun : MonoBehaviour
                 monster.HitDmg(ray.transform.GetComponent<HitPoint>().HitPointDmg);
         }
         magazine.bulletCount--;
-        if(magazine.bulletCount == 0) magazine.ZeroBullet();
+        if (magazine.bulletCount == 0) magazine.ZeroBullet();
         ammoTextUpdate();
         AudioManager.instance.PlaySfx(SfxAudio.HandGun);
     }
@@ -51,5 +63,13 @@ public class HandGun : MonoBehaviour
     void ammoTextUpdate()
     {
         ammoText.text = $"{magazine.bulletCount}/{magazine.MaxbulletCount}";
+    }
+    IEnumerator FireTrigger()
+    {
+        while (true)
+        {
+            Fire();
+            yield return fireWait;
+        }
     }
 }

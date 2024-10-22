@@ -767,8 +767,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d82c9b51cc36a046876740eb1af0e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxbulletCount: 20
-  bulletCount: 20
+  maxbulletCount: 30
+  ViewBullet: {fileID: 3340541887416099788}
+  bulletCount: 30
 --- !u!1 &3340541887885909260
 GameObject:
   m_ObjectHideFlags: 0

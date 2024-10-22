@@ -38,6 +38,7 @@ public class MonsterSpawner : MonoBehaviour
         spawnTime = new WaitForSeconds(waveLevel[gameManager.waveLevel].spawnTime);
         waveCoroutine = StartCoroutine(WaveCoroutine(gameManager.waveLevel));
         gameManager.killCount = 0;
+        AudioManager.instance.StartBgm();
     }
     public void WaveClear()
     {
@@ -47,6 +48,7 @@ public class MonsterSpawner : MonoBehaviour
         waveCoroutine = null;
         GameManager.instance.doorDown(openDoor.ToArray());
         openDoor.Clear();
+        AudioManager.instance.StopBgm();
     }
     public void KillMonster()
     {

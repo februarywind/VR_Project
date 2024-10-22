@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public MonsterSpawner monsterSpawner;
+    public Core core;
+
     [SerializeField] GameObject mainPanel;
     [SerializeField] GameObject gameOverPanel;
 
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour
         {
             waveLevel = 0;
             killCount = 0;
+            core.coreHp = 10;
             restart = false;
         }
         monsterSpawner.WaveStart();

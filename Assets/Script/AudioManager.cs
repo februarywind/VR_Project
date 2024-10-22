@@ -32,7 +32,6 @@ public class AudioManager : MonoBehaviour
         bgmPlayer.volume = bgmVolum;
         bgmPlayer.clip = bgmClips;
         bgmPlayer.loop = true;
-        bgmPlayer.Play();
 
         sfxPlayer = new AudioSource[sfxClips.Length];
         for (int i = 0; i < sfxClips.Length; i++)

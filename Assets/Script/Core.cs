@@ -9,6 +9,10 @@ public class Core : MonoBehaviour
     {
         other.transform.root.GetComponent<Monster>().HitDmg(100);
         UIManger.Instance.CoreHpUpdate(--coreHp);
-        if (coreHp <= 0) GameManager.instance.GameOver();
+        if (coreHp <= 0)
+        {
+            coreHp = 0;
+            GameManager.instance.GameOver();
+        }
     }
 }

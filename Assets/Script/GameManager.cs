@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public MonsterSpawner monsterSpawner;
+    [SerializeField] GameObject mainPanel;
+    [SerializeField] GameObject gameOverPanel;
 
     public int waveLevel;
     public int killCount;
@@ -14,10 +17,27 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
     }
+    public void GameStart(bool restart)
+    {
+        if (restart)
+        {
+            waveLevel = 0;
+            killCount = 0;
+            restart = false;
+        }
+        monsterSpawner.WaveStart();
+    }
+    public void GameOver()
+    {
+        mainPanel.SetActive(false);
+        gameOverPanel.SetActive(true);
+        gameOverPanel.GetComponentsInChildren<TextMeshProUGUI>()[0].text = $"Game Over\nClear Wave : {waveLevel + 1}";
+    }
 
     public void doorDown(Transform[] doors)
     {
         StartCoroutine(DoorMove());
+        AudioManager.instance.PlaySfx(SfxAudio.Door);
         IEnumerator DoorMove()
         {
             while (true)
@@ -34,6 +54,7 @@ public class GameManager : MonoBehaviour
     public void doorUp(Transform[] doors)
     {
         StartCoroutine(DoorMove());
+        AudioManager.instance.PlaySfx(SfxAudio.Door);
         IEnumerator DoorMove()
         {
             while (true)

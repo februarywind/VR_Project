@@ -36,13 +36,8 @@ public class MonsterSpawner : MonoBehaviour
             openDoor.Add(temp);
         }
         spawnTime = new WaitForSeconds(waveLevel[gameManager.waveLevel].spawnTime);
-        GameManager.instance.doorUp(openDoor.ToArray());
         waveCoroutine = StartCoroutine(WaveCoroutine(gameManager.waveLevel));
         gameManager.killCount = 0;
-    }
-    public void WaveEnd()
-    {
-        StopCoroutine(waveCoroutine);
     }
     public void WaveClear()
     {
@@ -62,6 +57,7 @@ public class MonsterSpawner : MonoBehaviour
     IEnumerator WaveCoroutine(int level)
     {
         int count = 0;
+        GameManager.instance.doorUp(openDoor.ToArray());
         while (count < waveLevel[level].maxMonster)
         {
             PoolManager.instance.Create(PoolEnum.Monster, openDoor[UnityEngine.Random.Range(0, openDoor.Count)]);

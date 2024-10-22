@@ -8,7 +8,7 @@ public class Core : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         other.transform.root.GetComponent<Monster>().HitDmg(100);
-        coreHp--;
-        Debug.Log(coreHp);
+        UIManger.Instance.CoreHpUpdate(--coreHp);
+        if (coreHp <= 0) GameManager.instance.GameOver();
     }
 }

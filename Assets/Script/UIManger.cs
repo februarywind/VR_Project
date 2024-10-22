@@ -1,12 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class UIManger : MonoBehaviour
 {
-    [SerializeField] Transform objectSpawn;
-    public void MagazineCreate()
+    public static UIManger Instance;
+    [SerializeField] TextMeshProUGUI CoreHp;
+
+    private void Awake()
     {
-        PoolManager.instance.Create(PoolEnum.Magazine, objectSpawn);
+        Instance = this;
     }
+    public void CoreHpUpdate(int hp)
+    {
+        CoreHp.text = $"Core HP : {hp}";
+    }
+
 }

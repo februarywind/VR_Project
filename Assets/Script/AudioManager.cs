@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum SfxAudio
 {
-    HandGun
+    HandGun, Door
 }
 
 public class AudioManager : MonoBehaviour
@@ -25,15 +23,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        instance = this;
         Init();
     }
     void Init()

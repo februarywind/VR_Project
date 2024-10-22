@@ -25,6 +25,7 @@ public class Monster : MonoBehaviour
         dead = false;
         foreach (var item in boxColliders)
             item.enabled = true;
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     private void Update()

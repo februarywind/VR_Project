@@ -20,6 +20,7 @@ public class MonsterSpawner : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.instance;
+        GameManager.instance.doorDown(spawnPoint);
     }
     public void WaveStart()
     {
@@ -35,6 +36,7 @@ public class MonsterSpawner : MonoBehaviour
             openDoor.Add(temp);
         }
         spawnTime = new WaitForSeconds(waveLevel[gameManager.waveLevel].spawnTime);
+        GameManager.instance.doorUp(openDoor.ToArray());
         waveCoroutine = StartCoroutine(WaveCoroutine(gameManager.waveLevel));
         gameManager.killCount = 0;
     }
@@ -48,6 +50,7 @@ public class MonsterSpawner : MonoBehaviour
         gameManager.waveLevel = Math.Min(gameManager.waveLevel, 9);
         StopCoroutine(waveCoroutine);
         waveCoroutine = null;
+        GameManager.instance.doorDown(openDoor.ToArray());
         openDoor.Clear();
     }
     public void KillMonster()
